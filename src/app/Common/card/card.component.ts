@@ -4,6 +4,7 @@ import { CityService } from 'src/app/shared/services/city.service';
 import { WeatherService } from 'src/app/shared/services/weather.service';
 import { DatePipe} from '@angular/common';
 import { Weather } from 'src/app/shared/models/weather';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -35,11 +36,11 @@ export class CardComponent implements OnInit {
     humidity: 0,
     visibility: 0,
     predictability: 0,
-    created: new Date()
+    created: undefined
   }
   weatherIconLink: string = "";
 
-  constructor(private cityService: CityService, private weatherService: WeatherService, private datePipe: DatePipe) { }
+  constructor(private cityService: CityService, private weatherService: WeatherService, private datePipe: DatePipe, private router: Router,) { }
 
   ngOnInit(): void {
     //Find city id
@@ -49,13 +50,28 @@ export class CardComponent implements OnInit {
         this.weatherService.getWeather(this.cityToDisplay.woeid, this.weatherToDisplay.applicable_date).subscribe((data: any) => {
           this.weatherToDisplay = data[0]
           //Initialize the icon according to the weather received
-          this.getWeatherIcon(data[0].weather_state_abbr)       
+          this.getWeatherIcon(data[0].weather_state_abbr)    
+          this.transformNumbers(this.weatherToDisplay);   
         })
       })
   }
 
   getWeatherIcon(abbr: string){
     this.weatherIconLink = `https://www.metaweather.com/static/img/weather/${abbr}.svg`;
+  }
+
+  openCityDetails(id: number | undefined){
+    this.router.navigate(["/city/" + id]);
+  }
+
+  transformNumbers(weather: Weather){
+    if(weather.the_temp && weather.min_temp && weather.max_temp && weather.wind_speed && weather.humidity){
+      weather.the_temp = Math.floor(weather.the_temp);
+      weather.min_temp = Math.floor(weather.min_temp);
+      weather.max_temp = Math.floor(weather.max_temp);
+      weather.wind_speed = Math.floor(weather.wind_speed);
+      weather.humidity = Math.floor(weather.humidity);
+      }
   }
 
 }
