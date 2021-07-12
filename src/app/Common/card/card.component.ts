@@ -37,17 +37,19 @@ export class CardComponent implements OnInit {
     predictability: 0,
     created: new Date()
   }
-weatherIconLink: string = "";
+  weatherIconLink: string = "";
 
   constructor(private cityService: CityService, private weatherService: WeatherService, private datePipe: DatePipe) { }
 
   ngOnInit(): void {
+    //Find city id
     this.cityService.getCity(this.cityInput).subscribe((data: any) => {
         this.cityToDisplay = data[0]
+        //Find weather corresponding with the city id found
         this.weatherService.getWeather(this.cityToDisplay.woeid, this.weatherToDisplay.applicable_date).subscribe((data: any) => {
           this.weatherToDisplay = data[0]
-          this.getWeatherIcon(data[0].weather_state_abbr)
-          
+          //Initialize the icon according to the weather received
+          this.getWeatherIcon(data[0].weather_state_abbr)       
         })
       })
   }

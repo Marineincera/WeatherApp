@@ -1,19 +1,18 @@
-<div>
+<div class="card">
     <h2>{{cityToDisplay.title}}</h2>
-    <div>
+    <div class="header-card">
         <img [src]="weatherIconLink" alt="Clear" style="width:32px">
-        <p>Temp actuelle : {{weatherToDisplay.the_temp}}°C</p>
-        <!-- <p>{{weatherToDisplay.weather_state_name}}</p> -->
+        <p>{{weatherToDisplay.the_temp}}°C</p>
     </div>
-    <div>
-        <p>Temp min : {{weatherToDisplay.min_temp}}°C</p>
-        <p>Temp max :{{weatherToDisplay.max_temp}}°C</p>
+    <div class="card-section temp">
+        <p>Min : {{weatherToDisplay.min_temp}}°C</p>
+        <p>Max : {{weatherToDisplay.max_temp}}°C</p>
     </div>
-    <div>
-        <p>Force du vent : {{weatherToDisplay.wind_speed}}</p>
-        <p>Humidité : {{weatherToDisplay.humidity}}</p>
+    <div class="card-section details">
+        <p>Wind : {{weatherToDisplay.wind_speed}}</p>
+        <p>Humidity : {{weatherToDisplay.humidity}}</p>
     </div>
-    <div>
-        <p>{{weatherToDisplay.created | date :'short'}}</p>
+    <div class="card-section creation">
+        <p>created {{weatherToDisplay.created | date :'short'}}</p>
     </div>
 </div>
