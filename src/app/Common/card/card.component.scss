@@ -1,18 +1,19 @@
-* {
-    // background-color: blueviolet;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-
-}
 
 .card{
     border: 3px solid gray;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 23vw;
+    height: 100%;
 }
 
 
 .card-section{
     width: 100%;
+    display: flex;
     flex-direction: row;
     justify-content: space-around;
+    align-items: center;
 }

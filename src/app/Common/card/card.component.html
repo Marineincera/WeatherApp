@@ -1,4 +1,4 @@
-<div class="card">
+<div class="card" (click)="openCityDetails(cityToDisplay.woeid)">
     <h2>{{cityToDisplay.title}}</h2>
     <div class="header-card">
         <img [src]="weatherIconLink" alt="Clear" style="width:32px">
@@ -6,7 +6,7 @@
     </div>
     <div class="card-section temp">
         <p>Min : {{weatherToDisplay.min_temp}}°C</p>
-        <p>Max : {{weatherToDisplay.max_temp}}°C</p>
+        <p>Max : {{weatherToDisplay.max_temp }}°C</p>
     </div>
     <div class="card-section details">
         <p>Wind : {{weatherToDisplay.wind_speed}}</p>
