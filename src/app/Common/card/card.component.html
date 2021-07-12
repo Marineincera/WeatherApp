@@ -1,1 +1,19 @@
-<p>card works!</p>
+<div>
+    <h2>{{cityToDisplay.title}}</h2>
+    <div>
+        <img [src]="weatherIconLink" alt="Clear" style="width:32px">
+        <p>Temp actuelle : {{weatherToDisplay.the_temp}}°C</p>
+        <!-- <p>{{weatherToDisplay.weather_state_name}}</p> -->
+    </div>
+    <div>
+        <p>Temp min : {{weatherToDisplay.min_temp}}°C</p>
+        <p>Temp max :{{weatherToDisplay.max_temp}}°C</p>
+    </div>
+    <div>
+        <p>Force du vent : {{weatherToDisplay.wind_speed}}</p>
+        <p>Humidité : {{weatherToDisplay.humidity}}</p>
+    </div>
+    <div>
+        <p>{{weatherToDisplay.created | date :'short'}}</p>
+    </div>
+</div>
