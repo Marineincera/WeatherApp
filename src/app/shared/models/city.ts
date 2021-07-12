@@ -1,7 +1,7 @@
 export class City {
     title!: string;
     location_type?: string;
-    woeid?: number;
+    woeid?: number | undefined;
     distance?: number;
 
     constructor(city: City){
