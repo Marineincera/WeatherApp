@@ -44,8 +44,10 @@ export class CardComponent implements OnInit {
       }
   }
 
-  openCityDetails(cityId: number | undefined, weatherId?: number | undefined){
-    this.router.navigate(["/city/" + cityId + "/" + weatherId]);
+  openCityDetails(city: City | undefined, weather: Weather| undefined){
+    this.cityService.selectedCity.next(city)
+    this.weatherService.selectedWeather.next(weather);
+    this.router.navigate(["/city/" + city?.woeid + "/" + weather?.id]);
   }
 
 

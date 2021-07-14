@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { City } from 'src/app/shared/models/city';
+import { Weather } from 'src/app/shared/models/weather';
 import { CityService } from 'src/app/shared/services/city.service';
+import { WeatherService } from 'src/app/shared/services/weather.service';
 
 @Component({
   selector: 'app-city-page',
@@ -9,34 +11,35 @@ import { CityService } from 'src/app/shared/services/city.service';
   styleUrls: ['./city-page.component.scss']
 })
 export class CityPageComponent implements OnInit {
-  cityId : number | null = 0;
-  city : City = {
-    title: "City",
-    location_type: "",
-    woeid: 0,
-    distance: 0
-  }
-  constructor( private route: ActivatedRoute, private router: Router,private cityService: CityService) { }
+  cityId : number | null = Number(this.route.snapshot.paramMap.get("cityId"));
+  weatherId : number | null = null;
+  city : City | undefined = undefined;
+  weather: Weather | undefined = undefined;
+  weathersArray : Array<any> | undefined = undefined;
+  constructor( private route: ActivatedRoute, private router: Router,private cityService: CityService, private weatherService: WeatherService) { }
 
   ngOnInit(): void {
-    // Get city id 
-    this.cityId = Number(this.route.snapshot.paramMap.get("id"));
-    //Get city infos 
-    if(this.cityService.initializationCities.length > 0){
-      //From city service
-      this.city = this.getInfosFromService(this.cityId)
-      console.log(this.city)
-    } else {
-      //From API
-      this.getCityInfoFromApi(this.cityId)
+    this.getCityInfos(Number(this.route.snapshot.paramMap.get("cityId")))
+    this.getWeatherInfo(Number(this.route.snapshot.paramMap.get("cityId")))
+    
+
+  }
+
+  getCityInfos(id: number){
+    if(this.cityService.selectedCity){
+      this.cityService.selectedCity.subscribe((data:any) => {
+        this.city = data
+      })
     }
-
-
+   if(!this.city){
+      //From API
+      this.cityService.selectedCity.next(this.getCityInfoFromApi(id))
+      this.cityService.selectedCity.subscribe((data: any) => {
+        this.city = data
+      })
+    }
   }
 
- getInfosFromService(id: number){
-     return this.cityService.initializationCities.find((city: City) => city.woeid === id);
-  }
   
   getCityInfoFromApi(id: number) : any{
     this.cityService.getCityById(id).subscribe((cityArray: any) => {
@@ -44,4 +47,15 @@ export class CityPageComponent implements OnInit {
     })
   }
 
+  getWeatherInfo(id: number){
+    this.getWeatherInfosFromData(id, new Date())
+    }
+  
+
+ getWeatherInfosFromData(id: number, date: Date){
+  this.weatherService.getWeather(id, date).subscribe((data: any) => {
+    this.weathersArray = data
+    console.log(data)
+  })
+ }
 }
