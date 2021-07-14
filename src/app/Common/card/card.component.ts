@@ -7,6 +7,7 @@ import { Weather } from 'src/app/shared/models/weather';
 import { Router } from '@angular/router';
 
 
+
 @Component({
   selector: 'app-card',
   templateUrl: './card.component.html',
@@ -14,58 +15,23 @@ import { Router } from '@angular/router';
   providers: [DatePipe]
 })
 export class CardComponent implements OnInit {
-  @Input() cityInput: string ="City";
-  cityToDisplay: City = {
-    title: "City",
-    location_type: "",
-    woeid: 0,
-    distance: 0
-  }
-  weatherToDisplay : Weather = {
-    id: 0,
-    applicable_date: new Date(),
-    weather_state_name: "",
-    weather_state_abbr: "",
-    wind_speed: 0,
-    wind_direction: 0,
-    wind_direction_compass: "",
-    min_temp: 0,
-    max_temp: 0,
-    the_temp:0,
-    air_pressure: 0,
-    humidity: 0,
-    visibility: 0,
-    predictability: 0,
-    created: undefined
-  }
+  @Input() cityToDisplay: City| undefined = undefined;
+  @Input() weather: Weather | undefined = undefined;
+
   weatherIconLink: string = "";
 
   constructor(private cityService: CityService, private weatherService: WeatherService, private datePipe: DatePipe, private router: Router,) { }
 
   ngOnInit(): void {
-    //Find city id
-    this.cityService.getCity(this.cityInput).subscribe((data: any) => {
-        this.cityToDisplay = data[0]
-        //Put city details into a service
-        this.cityService.initializationCities.push(data[0])
-        //Find weather corresponding with the city id found
-        this.weatherService.getWeather(this.cityToDisplay.woeid, this.weatherToDisplay.applicable_date).subscribe((data: any) => {
-          this.weatherToDisplay = data[0];
-          //Put weather details into a service
-          this.weatherService.initializationCitiesWeather.push(data[0]);
-          //Initialize the icon according to the weather received
-          this.getWeatherIcon(data[0].weather_state_abbr)    
-          this.transformNumbers(this.weatherToDisplay);   
-        })
-      })
+    if(this.weather){
+      this.getWeatherIcon(this.weather.weather_state_abbr);
+      this.transformNumbers(this.weather)
+    }
+  
   }
 
-  getWeatherIcon(abbr: string){
+  getWeatherIcon(abbr: string | undefined){
     this.weatherIconLink = `https://www.metaweather.com/static/img/weather/${abbr}.svg`;
-  }
-
-  openCityDetails(id: number | undefined){
-    this.router.navigate(["/city/" + id]);
   }
 
   transformNumbers(weather: Weather){
@@ -77,5 +43,12 @@ export class CardComponent implements OnInit {
       weather.humidity = Math.floor(weather.humidity);
       }
   }
+
+  openCityDetails(cityId: number | undefined, weatherId?: number | undefined){
+    this.router.navigate(["/city/" + cityId + "/" + weatherId]);
+  }
+
+
+
 
 }

@@ -16,6 +16,6 @@ export class CityService {
   }
 
   getCityById(id: number){
-    return this.http.get(CityService.URL + "/api/location/" + id)
+    return this.http.get(CityService.URL + id)
   }
 }

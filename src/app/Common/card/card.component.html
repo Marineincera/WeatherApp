@@ -1,18 +1,18 @@
-<div class="card" (click)="openCityDetails(cityToDisplay.woeid)">
+<div *ngIf="cityToDisplay && weather" class="card" (click)="openCityDetails(cityToDisplay.woeid, weather.id)">
     <h2>{{cityToDisplay.title}}</h2>
     <div class="header-card">
         <img [src]="weatherIconLink" alt="Clear" style="width:32px">
-        <p>{{weatherToDisplay.the_temp}}°C</p>
+        <p>{{weather.the_temp}}°C</p>
     </div>
     <div class="card-section temp">
-        <p>Min : {{weatherToDisplay.min_temp}}°C</p>
-        <p>Max : {{weatherToDisplay.max_temp }}°C</p>
+        <p>Min : {{weather.min_temp}}°C</p>
+        <p>Max : {{weather.max_temp }}°C</p>
     </div>
     <div class="card-section details">
-        <p>Wind : {{weatherToDisplay.wind_speed}}</p>
-        <p>Humidity : {{weatherToDisplay.humidity}}</p>
+        <p>Wind : {{weather.wind_speed}}</p>
+        <p>Humidity : {{weather.humidity}}</p>
     </div>
     <div class="card-section creation">
-        <p>created {{weatherToDisplay.created | date :'short'}}</p>
+        <p>created {{weather.created | date :'short'}}</p>
     </div>
 </div>
