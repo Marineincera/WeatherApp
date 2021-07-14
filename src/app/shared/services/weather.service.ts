@@ -2,8 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { DatePipe} from '@angular/common';
 import { CityService } from './city.service';
-import { City } from '../models/city';
-import { Observable } from 'rxjs';
+
 
 
 @Injectable({

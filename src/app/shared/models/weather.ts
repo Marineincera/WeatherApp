@@ -13,7 +13,7 @@ export class Weather {
     humidity?: number;
     visibility?: number;
     predictability?: number;
-    created?: Date;
+    created?: Date | undefined;
 
     constructor(weather: Weather){
         Object.assign(weather, this)
