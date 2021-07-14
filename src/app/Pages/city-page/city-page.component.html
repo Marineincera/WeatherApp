@@ -1,1 +1,14 @@
-<p>city-page works!</p>
+<div *ngIf="city && weather">
+    <p>{{city.title}}</p>
+    <span (click)="dateBefore(weather.applicable_date)">-</span>
+    <span>{{weather.applicable_date}}</span>
+    <span (click)="dateAfter(weather.applicable_date)">+</span>
+    <div *ngIf="weather">
+        <app-card [cityToDisplay]="city" [weather]="weather" [homepage]="false"></app-card>
+    </div>
+    <div *ngIf="weathersArray">
+        <div *ngFor="let w of weathersArray">
+            <app-card [cityToDisplay]="city" [weather]="w" [homepage]="false"></app-card>
+        </div>
+    </div>
+</div>

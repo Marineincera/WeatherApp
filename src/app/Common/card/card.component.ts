@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import { City } from 'src/app/shared/models/city';
 import { CityService } from 'src/app/shared/services/city.service';
 import { WeatherService } from 'src/app/shared/services/weather.service';
@@ -7,61 +7,42 @@ import { Weather } from 'src/app/shared/models/weather';
 import { Router } from '@angular/router';
 
 
+
 @Component({
   selector: 'app-card',
   templateUrl: './card.component.html',
   styleUrls: ['./card.component.scss'],
   providers: [DatePipe]
 })
-export class CardComponent implements OnInit {
-  @Input() cityInput: string ="City";
-  cityToDisplay: City = {
-    title: "City",
-    location_type: "",
-    woeid: 0,
-    distance: 0
-  }
-  weatherToDisplay : Weather = {
-    id: 0,
-    applicable_date: new Date(),
-    weather_state_name: "",
-    weather_state_abbr: "",
-    wind_speed: 0,
-    wind_direction: 0,
-    wind_direction_compass: "",
-    min_temp: 0,
-    max_temp: 0,
-    the_temp:0,
-    air_pressure: 0,
-    humidity: 0,
-    visibility: 0,
-    predictability: 0,
-    created: undefined
-  }
+export class CardComponent implements OnInit, OnChanges {
+  @Input() cityToDisplay: City| undefined = undefined;
+  @Input() weather: Weather | undefined = undefined;
+  @Input() homepage : boolean = true;
   weatherIconLink: string = "";
 
   constructor(private cityService: CityService, private weatherService: WeatherService, private datePipe: DatePipe, private router: Router,) { }
 
+  ngOnChanges(): void{
+    console.log("card changed")
+    if(this.weather){
+    this.transformNumbers(this.weather)   
+    }
+  }
+
   ngOnInit(): void {
-    //Find city id
-    this.cityService.getCity(this.cityInput).subscribe((data: any) => {
-        this.cityToDisplay = data[0]
-        //Find weather corresponding with the city id found
-        this.weatherService.getWeather(this.cityToDisplay.woeid, this.weatherToDisplay.applicable_date).subscribe((data: any) => {
-          this.weatherToDisplay = data[0]
-          //Initialize the icon according to the weather received
-          this.getWeatherIcon(data[0].weather_state_abbr)    
-          this.transformNumbers(this.weatherToDisplay);   
-        })
-      })
+    if(this.weather){
+      this.getWeatherIcon(this.weather.weather_state_abbr);
+      this.transformNumbers(this.weather)   
+    }
+ 
+   
+  
+
+  
   }
 
-  getWeatherIcon(abbr: string){
+  getWeatherIcon(abbr: string | undefined){
     this.weatherIconLink = `https://www.metaweather.com/static/img/weather/${abbr}.svg`;
-  }
-
-  openCityDetails(id: number | undefined){
-    this.router.navigate(["/city/" + id]);
   }
 
   transformNumbers(weather: Weather){
@@ -73,5 +54,14 @@ export class CardComponent implements OnInit {
       weather.humidity = Math.floor(weather.humidity);
       }
   }
+
+  openCityDetails(city: City | undefined, weather: Weather| undefined){
+    this.cityService.selectedCity.next(city)
+    this.weatherService.selectedWeather.next(weather);
+    this.router.navigate(["/city/" + city?.woeid + "/" + weather?.id]);
+  }
+
+
+
 
 }
