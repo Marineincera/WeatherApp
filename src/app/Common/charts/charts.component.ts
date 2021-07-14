@@ -47,13 +47,14 @@ export class ChartsComponent implements OnInit, OnChanges {
   ngOnChanges(){
     console.log("charts changement")
     this.initDatas()
-
+    Highcharts.chart('charts-container', this.options);
+    console.log(this.weatherArray)
 
   }
 
 
   ngOnInit(): void {
-    this.initDatas()
+    // this.initDatas()
     console.log("charts init")
 
 
@@ -62,35 +63,42 @@ export class ChartsComponent implements OnInit, OnChanges {
 
   initDatas(){
    
-if(this.weatherArray && this.weatherArray.length > 0){
-  console.log(this.weatherArray)
-      this.weatherArray.forEach((e) => {
-        if(typeof (e.the_temp) === "number"){
-          let f = Math.floor(e.the_temp)
-          if(this.tempDatas.length === 5){
-            this.tempDatas= []
-            this.tempDatas.push(f)
-          }else{
-            console.log(this.tempDatas)
-            this.tempDatas.push(f)
-          }
-          
-        }
-        if(this.dateDatas.length === 5){
-          this.dateDatas = [];
-          this.dateDatas.push(this.datePipe.transform(e.created, 'shortTime'))
-          this.dateDatas = this.dateDatas.reverse()
-        } else {
-          this.dateDatas.push(this.datePipe.transform(e.created, 'shortTime'))
-          this.dateDatas = this.dateDatas.reverse()
-        }
-      })
-    }
-    if(this.dateDatas.length > 0){
-      Highcharts.chart('charts-container', this.options);
-    }
+  this.weatherService.selectedCityWeatherArray.subscribe((data) => {
+    console.log(data)
+    console.log(this.weatherArray)
+    data.forEach((e,i) => {
+      i++
+      if(typeof (e.the_temp) === "number"){
+        let f = Math.floor(e.the_temp)
+        if(this.tempDatas.length === 5){
+          this.tempDatas= []
+          this.tempDatas.push(f)
+        }else{
+          console.log(this.tempDatas)
+          this.tempDatas.push(f)
+        }       
+      }
+      if(this.dateDatas.length === 5){
+        this.dateDatas = [];
+        this.dateDatas.push(this.datePipe.transform(e.created, 'shortTime'))
+        this.dateDatas = this.dateDatas.reverse()
+      } else {
+        this.dateDatas.push(this.datePipe.transform(e.created, 'shortTime'))
+        this.dateDatas = this.dateDatas.reverse()
+      }
+      if(i === 5){
+        this.options.series[0].data= this.tempDatas
+        this.options.xAxis.categories = this.dateDatas
+      }
+    })
 
-  }
+  })
+  Highcharts.chart('charts-container', this.options);
+  console.log(this.options)
+}
+     
+
+  
 
 
 }
