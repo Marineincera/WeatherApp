@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import { City } from 'src/app/shared/models/city';
 import { CityService } from 'src/app/shared/services/city.service';
 import { WeatherService } from 'src/app/shared/services/weather.service';
@@ -14,19 +14,30 @@ import { Router } from '@angular/router';
   styleUrls: ['./card.component.scss'],
   providers: [DatePipe]
 })
-export class CardComponent implements OnInit {
+export class CardComponent implements OnInit, OnChanges {
   @Input() cityToDisplay: City| undefined = undefined;
   @Input() weather: Weather | undefined = undefined;
-
+  @Input() homepage : boolean = true;
   weatherIconLink: string = "";
 
   constructor(private cityService: CityService, private weatherService: WeatherService, private datePipe: DatePipe, private router: Router,) { }
 
+  ngOnChanges(): void{
+    console.log("card changed")
+    if(this.weather){
+    this.transformNumbers(this.weather)   
+    }
+  }
+
   ngOnInit(): void {
     if(this.weather){
       this.getWeatherIcon(this.weather.weather_state_abbr);
-      this.transformNumbers(this.weather)
+      this.transformNumbers(this.weather)   
     }
+ 
+   
+  
+
   
   }
 

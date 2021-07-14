@@ -28,10 +28,15 @@ export class WeatherService {
   }
 
 
-  getWeather(cityId:number |undefined, date:Date){
-    const dateToAsk = this.transformDate(date);
-    return this.http.get(WeatherService.URL + `${cityId}/${dateToAsk}`)
-
+  getWeather(cityId:number |null, date:Date | string){
+    if(typeof(date) !== "string"){
+      const dateToAsk = this.transformDate(date);
+      return this.http.get(WeatherService.URL + `${cityId}/${dateToAsk}`)
+    } else {
+      return this.http.get(WeatherService.URL + `${cityId}/` + date)
+    }
+    
+  
   }
 
 }

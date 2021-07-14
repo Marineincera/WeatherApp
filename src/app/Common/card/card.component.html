@@ -1,5 +1,5 @@
 <div *ngIf="cityToDisplay && weather" class="card" (click)="openCityDetails(cityToDisplay, weather)">
-    <h2>{{cityToDisplay.title}}</h2>
+    <h2 *ngIf="homepage">{{cityToDisplay.title}}</h2>
     <div class="header-card">
         <img [src]="weatherIconLink" alt="Clear" style="width:32px">
         <p>{{weather.the_temp}}°C</p>
