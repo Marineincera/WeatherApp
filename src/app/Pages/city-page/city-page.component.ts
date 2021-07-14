@@ -15,14 +15,14 @@ export class CityPageComponent implements OnInit {
   weatherId : number | null = null;
   city : City | undefined = undefined;
   weather: Weather | undefined = undefined;
-  weathersArray : Array<any> | undefined = undefined;
+  weathersArray : Array<Weather> | undefined = undefined;
   dateIncrementation = 0;
   constructor( private route: ActivatedRoute, private router: Router,private cityService: CityService, private weatherService: WeatherService) { }
 
   ngOnInit(): void {
     this.getCityInfos(Number(this.route.snapshot.paramMap.get("cityId")))
     this.getWeatherInfo(Number(this.route.snapshot.paramMap.get("cityId")))
-  console.log("reinit")
+
 
   }
 
@@ -54,16 +54,24 @@ export class CityPageComponent implements OnInit {
   
 
  getWeatherInfosFromData(id: number | null, date: Date ){
-  this.weatherService.getWeather(id, date).subscribe((data: Weather |any) => {
+   //get weather according to the date
+  this.weatherService.getWeather(id, date).subscribe((dataArray: Weather |any) => {
     this.weathersArray = []
-    this.weatherService.selectedWeather.next(data[0])
+    //Update selectedWeather
+    this.weatherService.selectedWeather.next(dataArray[0])
     this.weatherService.selectedWeather.subscribe((data) => {
       this.weather = data
-      console.log(this.weather)
     })
-    // this.weather = data[0]
+    //Get only 5 datas from dataArray received from the API
     for (let i = 1; i < 6; i++){
-      this.weathersArray?.push(data[i])
+      this.weathersArray?.push(dataArray[i])
+      if(this.weathersArray?.length === 5){
+        //Update the selectedWeatherArray (USED FOR CHARTS)
+        this.weatherService.selectedCityWeatherArray.next(this.weathersArray);
+        this.weatherService.selectedCityWeatherArray.subscribe((selectedWeather) => {
+          this.weathersArray = selectedWeather
+        })
+      }  
     }
   })
  }

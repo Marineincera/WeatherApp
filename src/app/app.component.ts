@@ -17,7 +17,6 @@ export class AppComponent {
 
   ngOnInit(){
     this.cityService.cities.subscribe((cities) => {
-      console.log(cities)
     })
     this.getInitializationCitiesDatas(this.cities)
   }
@@ -41,16 +40,11 @@ export class AppComponent {
         if(i === this.cities.length){
           this.cityService.cities.next(this.cityService.initializationCities)
           this.weatherService.weathers.next(this.weatherService.initializationCitiesWeather)
-          // this.citiesToDisplay = this.cityService.initializationCities;
-          // this.weathersToDisplay = this.weatherService.initializationCitiesWeather;
         }
       })
     }else {
       this.cityService.cities.next(this.cityService.initializationCities)
       this.weatherService.weathers.next(this.weatherService.initializationCitiesWeather)
-
-      // this.citiesToDisplay = this.cityService.initializationCities;
-      // this.weathersToDisplay = this.weatherService.initializationCitiesWeather;
     }
   }
 }
