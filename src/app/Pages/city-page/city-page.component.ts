@@ -15,7 +15,7 @@ export class CityPageComponent implements OnInit {
   weatherId : number | null = null;
   city : City | undefined = undefined;
   weather: Weather | undefined = undefined;
-  weathersArray : Array<any> | undefined = undefined;
+  weathersArray : Array<Weather> | undefined = undefined;
   dateIncrementation = 0;
   constructor( private route: ActivatedRoute, private router: Router,private cityService: CityService, private weatherService: WeatherService) { }
 

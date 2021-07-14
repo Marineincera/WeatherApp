@@ -6,6 +6,7 @@
     <div *ngIf="weather">
         <app-card [cityToDisplay]="city" [weather]="weather" [homepage]="false"></app-card>
     </div>
+    <app-charts [weatherArray]="weathersArray"></app-charts>
     <div *ngIf="weathersArray">
         <div *ngFor="let w of weathersArray">
             <app-card [cityToDisplay]="city" [weather]="w" [homepage]="false"></app-card>
