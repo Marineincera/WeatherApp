@@ -1,1 +1,3 @@
-<p>city-page works!</p>
+<div *ngIf="city && city.woeid !== 0">
+    <p>{{city.title}}</p>
+</div>
