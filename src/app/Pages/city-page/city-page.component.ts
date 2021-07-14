@@ -22,7 +22,7 @@ export class CityPageComponent implements OnInit {
   ngOnInit(): void {
     this.getCityInfos(Number(this.route.snapshot.paramMap.get("cityId")))
     this.getWeatherInfo(Number(this.route.snapshot.paramMap.get("cityId")))
-  console.log("reinit")
+
 
   }
 
@@ -54,18 +54,28 @@ export class CityPageComponent implements OnInit {
   
 
  getWeatherInfosFromData(id: number | null, date: Date ){
-  this.weatherService.getWeather(id, date).subscribe((data: Weather |any) => {
+   //get weather accordint to the date
+  this.weatherService.getWeather(id, date).subscribe((dataArray: Weather |any) => {
     this.weathersArray = []
-    this.weatherService.selectedWeather.next(data[0])
+    this.weatherService.selectedWeather.next(dataArray[0])
     this.weatherService.selectedWeather.subscribe((data) => {
       this.weather = data
-      console.log(this.weather)
     })
     // this.weather = data[0]
     for (let i = 1; i < 6; i++){
-      this.weathersArray?.push(data[i])
+      this.weathersArray?.push(dataArray[i])
+      if(this.weathersArray?.length === 5){
+        this.weatherService.selectedCityWeatherArray.next(this.weathersArray);
+        this.weatherService.selectedCityWeatherArray.subscribe((selectedWeather) => {
+          this.weathersArray = selectedWeather
+          console.log("fromapi")
+          console.log(selectedWeather)
+          console.log(this.weathersArray)
+        })
+      }  
     }
   })
+
  }
 
 dateBefore(date : Date){
