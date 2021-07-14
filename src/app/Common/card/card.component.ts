@@ -46,9 +46,13 @@ export class CardComponent implements OnInit {
     //Find city id
     this.cityService.getCity(this.cityInput).subscribe((data: any) => {
         this.cityToDisplay = data[0]
+        //Put city details into a service
+        this.weatherService.initializationCities.push(data[0])
         //Find weather corresponding with the city id found
         this.weatherService.getWeather(this.cityToDisplay.woeid, this.weatherToDisplay.applicable_date).subscribe((data: any) => {
-          this.weatherToDisplay = data[0]
+          this.weatherToDisplay = data[0];
+          //Put weather details into a service
+          this.weatherService.initializationCitiesWeather.push(data[0]);
           //Initialize the icon according to the weather received
           this.getWeatherIcon(data[0].weather_state_abbr)    
           this.transformNumbers(this.weatherToDisplay);   
