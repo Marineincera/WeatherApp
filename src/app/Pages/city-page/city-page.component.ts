@@ -54,28 +54,26 @@ export class CityPageComponent implements OnInit {
   
 
  getWeatherInfosFromData(id: number | null, date: Date ){
-   //get weather accordint to the date
+   //get weather according to the date
   this.weatherService.getWeather(id, date).subscribe((dataArray: Weather |any) => {
     this.weathersArray = []
+    //Update selectedWeather
     this.weatherService.selectedWeather.next(dataArray[0])
     this.weatherService.selectedWeather.subscribe((data) => {
       this.weather = data
     })
-    // this.weather = data[0]
+    //Get only 5 datas from dataArray received from the API
     for (let i = 1; i < 6; i++){
       this.weathersArray?.push(dataArray[i])
       if(this.weathersArray?.length === 5){
+        //Update the selectedWeatherArray (USED FOR CHARTS)
         this.weatherService.selectedCityWeatherArray.next(this.weathersArray);
         this.weatherService.selectedCityWeatherArray.subscribe((selectedWeather) => {
           this.weathersArray = selectedWeather
-          console.log("fromapi")
-          console.log(selectedWeather)
-          console.log(this.weathersArray)
         })
       }  
     }
   })
-
  }
 
 dateBefore(date : Date){

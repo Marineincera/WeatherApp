@@ -23,7 +23,6 @@ export class CardComponent implements OnInit, OnChanges {
   constructor(private cityService: CityService, private weatherService: WeatherService, private datePipe: DatePipe, private router: Router,) { }
 
   ngOnChanges(): void{
-    console.log("card changed")
     if(this.weather){
     this.transformNumbers(this.weather)   
     }
