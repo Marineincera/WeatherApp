@@ -7,7 +7,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class CityService {
   static URL = "https://secret-ocean-49799.herokuapp.com/https://www.metaweather.com/api/location/search/?query=";
-
+  initializationCities : Array<any>=[]
 
   constructor(private http: HttpClient) { }
 

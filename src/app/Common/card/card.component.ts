@@ -47,7 +47,7 @@ export class CardComponent implements OnInit {
     this.cityService.getCity(this.cityInput).subscribe((data: any) => {
         this.cityToDisplay = data[0]
         //Put city details into a service
-        this.weatherService.initializationCities.push(data[0])
+        this.cityService.initializationCities.push(data[0])
         //Find weather corresponding with the city id found
         this.weatherService.getWeather(this.cityToDisplay.woeid, this.weatherToDisplay.applicable_date).subscribe((data: any) => {
           this.weatherToDisplay = data[0];

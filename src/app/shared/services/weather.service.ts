@@ -11,7 +11,7 @@ import { CityService } from './city.service';
 export class WeatherService {
   static URL = "https://secret-ocean-49799.herokuapp.com/https://www.metaweather.com/api/location/";
   initializationCitiesWeather : Array<any> = [];
-  initializationCities : Array<any>=[]
+
 
   constructor(private http: HttpClient, private datePipe: DatePipe, private cityService: CityService) { }
 
