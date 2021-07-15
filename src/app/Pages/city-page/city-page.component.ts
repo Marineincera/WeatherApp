@@ -78,18 +78,18 @@ export class CityPageComponent implements OnInit {
   })
  }
 
-dateBefore(date : Date){
+dateBefore(date : Date, city: City){
   let m = new Date()
   this.dateIncrementation = this.dateIncrementation - 1
   m.setDate(m.getDate() + this.dateIncrementation);
-  this.getWeatherInfosFromData(this.cityId, m)
+  this.getWeatherInfosFromData(Number(city.woeid), m)
 }
 
-dateAfter(date : Date){
+dateAfter(date : Date, city: City){
   let m = new Date()
   this.dateIncrementation = this.dateIncrementation + 1
   m.setDate(m.getDate() + this.dateIncrementation);
-  this.getWeatherInfosFromData(this.cityId, m)
+  this.getWeatherInfosFromData(Number(city.woeid), m)
 }
 
 }
