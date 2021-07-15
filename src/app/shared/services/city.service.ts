@@ -21,6 +21,10 @@ export class CityService {
     return this.http.get(CityService.URL + "search/?query=" + name)
   }
 
+  searchCities(letter: string | undefined){
+    return this.http.get(CityService.URL + 'search/?query=' + letter)
+  }
+
   getCityById(id: number){
     return this.http.get(CityService.URL + id)
   }
