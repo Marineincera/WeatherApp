@@ -59,13 +59,14 @@ export class SearchbarComponent implements OnInit {
     
   }
 
-
-
-
-
   deleteLastLetter(){
     this.searchInput = this.searchInput?.slice(0, this.searchInput.length)
     this.searchChange()
+  }
+
+  selectCity(city:string){
+    this.searchInput = city;
+    this.citiesNameListArray = [];
   }
 
 }

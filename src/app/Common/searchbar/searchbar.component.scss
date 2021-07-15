@@ -1,0 +1,30 @@
+
+.searchbar{
+    width: 30vw;
+    background-color: white;
+    display: flex;
+}
+
+.searchbar-field{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.search-button{
+    height: 5vh;
+}
+
+.searchbar-select-list{
+    border: 1px solid grey;
+}
+
+.select{
+    border: 1px solid grey;
+    margin-top: 1px;
+    margin-bottom: 0;
+}
+
+.select:hover{
+    background-color: gray;
+}
