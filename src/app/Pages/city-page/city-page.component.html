@@ -1,8 +1,8 @@
 <div *ngIf="city && weather">
     <p>{{city.title}}</p>
-    <span (click)="dateBefore(weather.applicable_date)">-</span>
+    <span (click)="dateBefore(weather.applicable_date, city)">-</span>
     <span>{{weather.applicable_date}}</span>
-    <span (click)="dateAfter(weather.applicable_date)">+</span>
+    <span (click)="dateAfter(weather.applicable_date, city)">+</span>
     <div *ngIf="weather">
         <app-card [cityToDisplay]="city" [weather]="weather" [homepage]="false"></app-card>
     </div>
