@@ -3,10 +3,10 @@
         <input  name="search" [(ngModel)]="searchInput" #search="ngModel" (input)="searchChange()" >
         <div *ngIf="citiesNameListArray" class="searchbar-select-list">
             <p *ngIf="citiesNameListArray[0]" class="select" (click)="selectCity(citiesNameListArray[0])">{{citiesNameListArray[0]}}</p>
-            <p *ngIf="citiesNameListArray[1]" class="select">{{citiesNameListArray[1]}}</p>
-            <p *ngIf="citiesNameListArray[2]" class="select">{{citiesNameListArray[2]}}</p>
-            <p *ngIf="citiesNameListArray[3]" class="select">{{citiesNameListArray[3]}}</p>
-            <p *ngIf="citiesNameListArray[4]" class="select">{{citiesNameListArray[4]}}</p>
+            <p *ngIf="citiesNameListArray[1]" class="select" (click)="selectCity(citiesNameListArray[1])">{{citiesNameListArray[1]}}</p>
+            <p *ngIf="citiesNameListArray[2]" class="select" (click)="selectCity(citiesNameListArray[2])">{{citiesNameListArray[2]}}</p>
+            <p *ngIf="citiesNameListArray[3]" class="select" (click)="selectCity(citiesNameListArray[3])">{{citiesNameListArray[3]}}</p>
+            <p *ngIf="citiesNameListArray[4]" class="select" (click)="selectCity(citiesNameListArray[4])">{{citiesNameListArray[4]}}</p>
         </div>    
 
     </div>

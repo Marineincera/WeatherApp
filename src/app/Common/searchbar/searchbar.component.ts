@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { City } from 'src/app/shared/models/city';
 import { CityService } from 'src/app/shared/services/city.service';
+import { WeatherService } from 'src/app/shared/services/weather.service';
 
 @Component({
   selector: 'app-searchbar',
@@ -13,10 +14,8 @@ export class SearchbarComponent implements OnInit {
   citiesReceivedArray : Array<City> = [];
   citiesNameListArray : Array<string> = [];
   citiesNameListArrayInitial : Array<string> = [];
-  constructor(private cityService: CityService) { }
 
- 
-
+  constructor(private cityService: CityService, private weatherService: WeatherService) { }
 
 
   ngOnInit(): void {
@@ -24,6 +23,8 @@ export class SearchbarComponent implements OnInit {
   
 
   searchChange( ){
+    console.log(this.searchInput)
+    console.log(this.citiesNameListArray )
     //when the user begin to write
     if(this.inputReceived?.length === 0 && this.searchInput?.length > 0){
       this.inputReceived = this.searchInput;
@@ -60,13 +61,30 @@ export class SearchbarComponent implements OnInit {
   }
 
   deleteLastLetter(){
+    this.searchInput = this.inputReceived
     this.searchInput = this.searchInput?.slice(0, this.searchInput.length)
     this.searchChange()
+    console.log(this.searchInput)
+    console.log(this.citiesNameListArray )
   }
 
   selectCity(city:string){
+    console.log(this.searchInput)
+    console.log(this.citiesNameListArray )
     this.searchInput = city;
     this.citiesNameListArray = [];
+    //Find city infos
+    console.log(this.citiesReceivedArray)
+    let fullcity = this.citiesReceivedArray.filter(e => (e.title).toLowerCase() == city)
+    if(fullcity){
+      console.log(fullcity)
+      this.cityService.selectedCity.next(fullcity[0])
+      this.weatherService.getWeather(fullcity[0].woeid, new Date()).subscribe((data: any) => {
+        this.weatherService.selectedCityWeatherArray.next(data)
+        console.log(data[0])
+        this.weatherService.selectedWeather.next(data[0])
+      })
+    }
   }
 
 }

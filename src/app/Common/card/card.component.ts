@@ -24,6 +24,7 @@ export class CardComponent implements OnInit, OnChanges {
 
   ngOnChanges(): void{
     if(this.weather){
+      this.getWeatherIcon(this.weather.weather_state_abbr);
     this.transformNumbers(this.weather)   
     }
   }
@@ -33,11 +34,6 @@ export class CardComponent implements OnInit, OnChanges {
       this.getWeatherIcon(this.weather.weather_state_abbr);
       this.transformNumbers(this.weather)   
     }
- 
-   
-  
-
-  
   }
 
   getWeatherIcon(abbr: string | undefined){

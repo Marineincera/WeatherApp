@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnChanges, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { City } from 'src/app/shared/models/city';
 import { Weather } from 'src/app/shared/models/weather';
@@ -19,10 +19,11 @@ export class CityPageComponent implements OnInit {
   dateIncrementation = 0;
   constructor( private route: ActivatedRoute, private router: Router,private cityService: CityService, private weatherService: WeatherService) { }
 
+
+
   ngOnInit(): void {
     this.getCityInfos(Number(this.route.snapshot.paramMap.get("cityId")))
     this.getWeatherInfo(Number(this.route.snapshot.paramMap.get("cityId")))
-
 
   }
 
@@ -63,6 +64,7 @@ export class CityPageComponent implements OnInit {
       this.weather = data
     })
     //Get only 5 datas from dataArray received from the API
+
     for (let i = 1; i < 6; i++){
       this.weathersArray?.push(dataArray[i])
       if(this.weathersArray?.length === 5){
