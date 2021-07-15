@@ -1,0 +1,48 @@
+.city-page{
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+
+}
+
+.title-wrapper{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.title-wrapper div{
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 40vw;
+}
+
+.title-wrapper p {
+    font-size: 5vh;
+    color: gray;
+}
+
+.date-button{
+    font-size: 5vh;
+    color: gray;
+}
+
+.date-button:hover{
+    background-color: grey;
+    color: white;
+}
+
+.weather-section{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.citypage-card{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    padding-top: 3vh;
+}
+

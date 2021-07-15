@@ -71,14 +71,15 @@ export class SearchbarComponent implements OnInit {
     //Find city infos
     let fullcity = this.citiesReceivedArray.filter(e => (e.title).toLowerCase() == city)
     if(fullcity){
-      console.log(fullcity)
       this.cityService.selectedCity.next(fullcity[0])
       this.weatherService.getWeather(fullcity[0].woeid, new Date()).subscribe((data: any) => {
         this.weatherService.selectedCityWeatherArray.next(data)
+    
         this.weatherService.selectedWeather.next(data[0])
         this.router.navigate(["/city/" + fullcity[0].woeid + "/" + data.id]);
+        this.searchInput = "";
       })
-    }
-  }
 
+    }
+}
 }
