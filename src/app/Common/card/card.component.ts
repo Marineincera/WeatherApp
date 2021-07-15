@@ -25,7 +25,7 @@ export class CardComponent implements OnInit, OnChanges {
   ngOnChanges(): void{
     if(this.weather){
       this.getWeatherIcon(this.weather.weather_state_abbr);
-    this.transformNumbers(this.weather)   
+      this.transformNumbers(this.weather)   
     }
   }
 
@@ -47,7 +47,7 @@ export class CardComponent implements OnInit, OnChanges {
       weather.max_temp = Math.floor(weather.max_temp);
       weather.wind_speed = Math.floor(weather.wind_speed);
       weather.humidity = Math.floor(weather.humidity);
-      }
+    }
   }
 
   openCityDetails(city: City | undefined, weather: Weather| undefined){

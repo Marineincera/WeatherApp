@@ -1,5 +1,5 @@
 <div  class="wrapper" *ngIf="weathersToDisplay.length === cities.length">
     <div *ngFor="let city of citiesToDisplay; let i = index">
-            <app-card [cityToDisplay]="citiesToDisplay[i]" [weather]="weathersToDisplay[i]" [homepage]="true"></app-card>
+        <app-card [cityToDisplay]="citiesToDisplay[i]" [weather]="weathersToDisplay[i]" [homepage]="true"></app-card>
     </div>
 </div>

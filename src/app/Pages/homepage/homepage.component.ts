@@ -14,7 +14,6 @@ import { WeatherService } from 'src/app/shared/services/weather.service';
   styleUrls: ['./homepage.component.scss']
 })
 export class HomepageComponent implements OnInit {
-  // city = "London"
   cities=["Paris", "Bordeaux", "Toulouse", "Lyon"]
   citiesToDisplay: City | any = [];
   weathersToDisplay: Weather | any = [];
