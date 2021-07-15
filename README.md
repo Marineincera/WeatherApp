@@ -6,7 +6,7 @@
 - Récupérer et afficher le détail de la météo d'une ville selon une date sélectionnée,
 - Afficher un graphique contenant les températures relevées dans la journée concernant une ville sélectionnée,
 - Réaliser un champ de recherche qui s'autocomplète selon l'input du user.
-- Afficher le détails de la météo de la ville saisie par le user.
+- Afficher le détail de la météo de la ville saisie par le user.
 
 ### Personal project - BorrowIt - Front - July 2020
 This project was created for the Wild Code School final exam. 
