@@ -16,14 +16,10 @@ export class AppComponent {
 
 
   ngOnInit(){
-    this.cityService.cities.subscribe((cities) => {
-    })
     this.getInitializationCitiesDatas(this.cities)
   }
-
   
   getInitializationCitiesDatas(cities: Array<string>){
-
     if(this.cityService.initializationCities.length === 0){
       cities.forEach((city, i) => {
         i++
@@ -42,7 +38,7 @@ export class AppComponent {
           this.weatherService.weathers.next(this.weatherService.initializationCitiesWeather)
         }
       })
-    }else {
+    }else{
       this.cityService.cities.next(this.cityService.initializationCities)
       this.weatherService.weathers.next(this.weatherService.initializationCitiesWeather)
     }

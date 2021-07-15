@@ -22,7 +22,6 @@ export class SearchbarComponent implements OnInit {
   ngOnInit(): void {
   }
   
-
   searchChange( ){
     //when the user begin to write
     if(this.inputReceived?.length === 0 && this.searchInput?.length > 0){
@@ -55,8 +54,7 @@ export class SearchbarComponent implements OnInit {
             this.citiesNameListArray = newArray;
           }
         })
-      }
-    
+    }
   }
 
   deleteLastLetter(){
@@ -74,12 +72,10 @@ export class SearchbarComponent implements OnInit {
       this.cityService.selectedCity.next(fullcity[0])
       this.weatherService.getWeather(fullcity[0].woeid, new Date()).subscribe((data: any) => {
         this.weatherService.selectedCityWeatherArray.next(data)
-    
         this.weatherService.selectedWeather.next(data[0])
         this.router.navigate(["/city/" + fullcity[0].woeid + "/" + data.id]);
         this.searchInput = "";
       })
-
     }
-}
+  }
 }

@@ -17,14 +17,12 @@ export class CityPageComponent implements OnInit {
   weather: Weather | undefined = undefined;
   weathersArray : Array<Weather> | undefined = undefined;
   dateIncrementation = 0;
+
   constructor( private route: ActivatedRoute, private router: Router,private cityService: CityService, private weatherService: WeatherService) { }
-
-
 
   ngOnInit(): void {
     this.getCityInfos(Number(this.route.snapshot.paramMap.get("cityId")))
     this.getWeatherInfo(Number(this.route.snapshot.paramMap.get("cityId")))
-
   }
 
   getCityInfos(id: number){
@@ -33,7 +31,7 @@ export class CityPageComponent implements OnInit {
         this.city = data
       })
     }
-   if(!this.city){
+    if(!this.city){
       //From API
       this.cityService.selectedCity.next(this.getCityInfoFromApi(id))
       this.cityService.selectedCity.subscribe((data: any) => {
@@ -41,7 +39,6 @@ export class CityPageComponent implements OnInit {
       })
     }
   }
-
   
   getCityInfoFromApi(id: number) : any{
     this.cityService.getCityById(id).subscribe((cityArray: any) => {
@@ -51,44 +48,43 @@ export class CityPageComponent implements OnInit {
 
   getWeatherInfo(id: number){
     this.getWeatherInfosFromData(id, new Date())
-    }
+  }
   
-
- getWeatherInfosFromData(id: number | null, date: Date ){
+  getWeatherInfosFromData(id: number | null, date: Date ){
    //get weather according to the date
-  this.weatherService.getWeather(id, date).subscribe((dataArray: Weather |any) => {
-    this.weathersArray = []
-    //Update selectedWeather
-    this.weatherService.selectedWeather.next(dataArray[0])
-    this.weatherService.selectedWeather.subscribe((data) => {
-      this.weather = data
+    this.weatherService.getWeather(id, date).subscribe((dataArray: Weather |any) => {
+      this.weathersArray = []
+      //Update selectedWeather
+      this.weatherService.selectedWeather.next(dataArray[0])
+      this.weatherService.selectedWeather.subscribe((data) => {
+        this.weather = data
+      })
+      //Get only 5 datas from dataArray received from the API
+      for (let i = 1; i < 6; i++){
+        this.weathersArray?.push(dataArray[i])
+        if(this.weathersArray?.length === 5){
+          //Update the selectedWeatherArray (USED FOR CHARTS)
+          this.weatherService.selectedCityWeatherArray.next(this.weathersArray);
+          this.weatherService.selectedCityWeatherArray.subscribe((selectedWeather) => {
+            this.weathersArray = selectedWeather
+          })
+        }  
+      }
     })
-    //Get only 5 datas from dataArray received from the API
-    for (let i = 1; i < 6; i++){
-      this.weathersArray?.push(dataArray[i])
-      if(this.weathersArray?.length === 5){
-        //Update the selectedWeatherArray (USED FOR CHARTS)
-        this.weatherService.selectedCityWeatherArray.next(this.weathersArray);
-        this.weatherService.selectedCityWeatherArray.subscribe((selectedWeather) => {
-          this.weathersArray = selectedWeather
-        })
-      }  
-    }
-  })
- }
+  }
 
-dateBefore(date : Date, city: City){
-  let m = new Date()
-  this.dateIncrementation = this.dateIncrementation - 1
-  m.setDate(m.getDate() + this.dateIncrementation);
-  this.getWeatherInfosFromData(Number(city.woeid), m)
-}
+  dateBefore(date : Date, city: City){
+    let m = new Date()
+    this.dateIncrementation = this.dateIncrementation - 1
+    m.setDate(m.getDate() + this.dateIncrementation);
+    this.getWeatherInfosFromData(Number(city.woeid), m)
+  }
 
-dateAfter(date : Date, city: City){
-  let m = new Date()
-  this.dateIncrementation = this.dateIncrementation + 1
-  m.setDate(m.getDate() + this.dateIncrementation);
-  this.getWeatherInfosFromData(Number(city.woeid), m)
-}
+  dateAfter(date : Date, city: City){
+    let m = new Date()
+    this.dateIncrementation = this.dateIncrementation + 1
+    m.setDate(m.getDate() + this.dateIncrementation);
+    this.getWeatherInfosFromData(Number(city.woeid), m)
+  }
 
 }
