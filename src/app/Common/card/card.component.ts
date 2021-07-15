@@ -20,7 +20,7 @@ export class CardComponent implements OnInit, OnChanges {
   @Input() homepage : boolean = true;
   weatherIconLink: string = "";
 
-  constructor(private cityService: CityService, private weatherService: WeatherService, private datePipe: DatePipe, private router: Router,) { }
+  constructor(private cityService: CityService, private weatherService: WeatherService, private datePipe: DatePipe, private router: Router) { }
 
   ngOnChanges(): void{
     if(this.weather){

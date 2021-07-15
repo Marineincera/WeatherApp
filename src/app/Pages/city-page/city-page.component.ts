@@ -64,7 +64,6 @@ export class CityPageComponent implements OnInit {
       this.weather = data
     })
     //Get only 5 datas from dataArray received from the API
-
     for (let i = 1; i < 6; i++){
       this.weathersArray?.push(dataArray[i])
       if(this.weathersArray?.length === 5){

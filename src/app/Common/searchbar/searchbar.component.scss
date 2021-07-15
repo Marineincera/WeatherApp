@@ -1,14 +1,22 @@
 
 .searchbar{
-    width: 30vw;
+    width: 100vw;
     background-color: white;
     display: flex;
+    margin-bottom: 10vh;
+    height: 10vh;
+    justify-content: center;
+    padding-top: 3vh;
+
 }
 
 .searchbar-field{
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
+    background-color: white;
+    position: absolute;
+    z-index: 3;
 }
 
 .search-button{

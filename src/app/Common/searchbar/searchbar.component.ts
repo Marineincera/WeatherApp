@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { City } from 'src/app/shared/models/city';
 import { CityService } from 'src/app/shared/services/city.service';
 import { WeatherService } from 'src/app/shared/services/weather.service';
@@ -15,7 +16,7 @@ export class SearchbarComponent implements OnInit {
   citiesNameListArray : Array<string> = [];
   citiesNameListArrayInitial : Array<string> = [];
 
-  constructor(private cityService: CityService, private weatherService: WeatherService) { }
+  constructor(private cityService: CityService, private weatherService: WeatherService, private router: Router) { }
 
 
   ngOnInit(): void {
@@ -70,13 +71,15 @@ export class SearchbarComponent implements OnInit {
     //Find city infos
     let fullcity = this.citiesReceivedArray.filter(e => (e.title).toLowerCase() == city)
     if(fullcity){
-      console.log(fullcity)
       this.cityService.selectedCity.next(fullcity[0])
       this.weatherService.getWeather(fullcity[0].woeid, new Date()).subscribe((data: any) => {
         this.weatherService.selectedCityWeatherArray.next(data)
+    
         this.weatherService.selectedWeather.next(data[0])
+        this.router.navigate(["/city/" + fullcity[0].woeid + "/" + data.id]);
+        this.searchInput = "";
       })
-    }
-  }
 
+    }
+}
 }

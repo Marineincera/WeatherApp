@@ -1,15 +1,22 @@
-<div *ngIf="city && weather">
-    <p>{{city.title}}</p>
-    <span (click)="dateBefore(weather.applicable_date, city)">-</span>
-    <span>{{weather.applicable_date}}</span>
-    <span (click)="dateAfter(weather.applicable_date, city)">+</span>
-    <div *ngIf="weather">
-        <app-card [cityToDisplay]="city" [weather]="weather" [homepage]="false"></app-card>
-    </div>
-    <app-charts [weatherArray]="weathersArray"></app-charts>
-    <div *ngIf="weathersArray">
-        <div *ngFor="let w of weathersArray">
-            <app-card [cityToDisplay]="city" [weather]="w" [homepage]="false"></app-card>
+<div *ngIf="city && weather" class="city-page">
+    <div class="title-wrapper">
+        <p>{{city.title}}</p>
+        <div class="time-wrapper">
+            <span (click)="dateBefore(weather.applicable_date, city)" class="date-button">-</span>
+            <span>{{weather.applicable_date}}</span>
+            <span (click)="dateAfter(weather.applicable_date, city)" class="date-button">+</span>
         </div>
     </div>
+    <div class="weather-section">
+        <div class="citypage-card">
+            <app-card *ngIf="weather" [cityToDisplay]="city" [weather]="weather" [homepage]="false" ></app-card>
+        </div>
+        <app-charts *ngIf="weathersArray"  [weatherArray]="weathersArray"></app-charts>
+        <div *ngIf="weathersArray" class="citypage-card" >
+                <app-card [cityToDisplay]="city" [weather]="weathersArray[0]" [homepage]="false"></app-card>
+                <app-card [cityToDisplay]="city" [weather]="weathersArray[1]" [homepage]="false"></app-card>
+                <app-card [cityToDisplay]="city" [weather]="weathersArray[2]" [homepage]="false"></app-card>
+                <app-card [cityToDisplay]="city" [weather]="weathersArray[3]" [homepage]="false"></app-card>
+        </div>
+    </div>   
 </div>
