@@ -23,8 +23,6 @@ export class SearchbarComponent implements OnInit {
   
 
   searchChange( ){
-    console.log(this.searchInput)
-    console.log(this.citiesNameListArray )
     //when the user begin to write
     if(this.inputReceived?.length === 0 && this.searchInput?.length > 0){
       this.inputReceived = this.searchInput;
@@ -64,24 +62,18 @@ export class SearchbarComponent implements OnInit {
     this.searchInput = this.inputReceived
     this.searchInput = this.searchInput?.slice(0, this.searchInput.length)
     this.searchChange()
-    console.log(this.searchInput)
-    console.log(this.citiesNameListArray )
   }
 
   selectCity(city:string){
-    console.log(this.searchInput)
-    console.log(this.citiesNameListArray )
     this.searchInput = city;
     this.citiesNameListArray = [];
     //Find city infos
-    console.log(this.citiesReceivedArray)
     let fullcity = this.citiesReceivedArray.filter(e => (e.title).toLowerCase() == city)
     if(fullcity){
       console.log(fullcity)
       this.cityService.selectedCity.next(fullcity[0])
       this.weatherService.getWeather(fullcity[0].woeid, new Date()).subscribe((data: any) => {
         this.weatherService.selectedCityWeatherArray.next(data)
-        console.log(data[0])
         this.weatherService.selectedWeather.next(data[0])
       })
     }
