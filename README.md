@@ -1,5 +1,16 @@
 # Weatherapp
 
+### Application réalisée pour un test technique.
+### Fonctionnalités développées :
+- Récupérer et afficher le détail de la météo d'une ville,
+- Récupérer et afficher le détail de la météo d'une ville selon une date sélectionnée,
+- Afficher un graphique contenant les températures relevées dans la journée concernant une ville sélectionnée,
+- Réaliser un champ de recherche qui s'autocomplète selon l'input du user.
+- Afficher le détails de la météo de la ville saisie par le user.
+
+### Personal project - BorrowIt - Front - July 2020
+This project was created for the Wild Code School final exam. 
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.0.5.
 
 ## Development server
